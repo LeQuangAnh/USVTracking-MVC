@@ -1,0 +1,1178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="USVTracking_MVC.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BaselineManagement">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ResourceName" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ResourceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ResourceType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CurrentVersion" Type="varchar" MaxLength="10" />
+          <Property Name="LastestVersion" Type="varchar" MaxLength="10" />
+          <Property Name="LastRequestID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LastRequestVersion" Type="varchar" MaxLength="10" />
+          <Property Name="BaselineDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FunctionMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Info1" Type="nvarchar" MaxLength="20" />
+          <Property Name="Info2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Info3" Type="nvarchar" MaxLength="20" />
+          <Property Name="Info4" Type="nvarchar" MaxLength="20" />
+          <Property Name="Info5" Type="nvarchar" MaxLength="20" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FunctionSizeInfo">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProductivityPhaseID" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProductivityPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="SizeInfo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreatedUserID" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HolidayMaster">
+          <Key>
+            <PropertyRef Name="Holiday" />
+          </Key>
+          <Property Name="Holiday" Type="datetime" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MappingProductivityProcess">
+          <Key>
+            <PropertyRef Name="ProductivityPhaseID" />
+            <PropertyRef Name="TrackingPhaseID" />
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="ProductivityPhaseID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TrackingPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TrackingProcessID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MappingTrackingAndTimeRecord">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="TrackingProjectName" />
+            <PropertyRef Name="TrackingPhaseName" />
+            <PropertyRef Name="TrackingProcessName" />
+            <PropertyRef Name="TimeRecordProjectName" />
+            <PropertyRef Name="TimeRecordPhaseName" />
+            <PropertyRef Name="TimeRecordProcessName" />
+          </Key>
+          <Property Name="Role" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TrackingProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrackingPhaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrackingProcessName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TimeRecordProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeRecordPhaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeRecordProcessName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductivityPhaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ProductivityPhaseID" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductivityPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="ProductivityPhaseName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DisplayOrder" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectName" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="TimeRecordProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsScheduled" Type="tinyint" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestSchedule">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="RequestID" />
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="UserID" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="PlanStart" Type="datetime" Nullable="false" />
+          <Property Name="PlanFinish" Type="datetime" Nullable="false" />
+          <Property Name="PlanEffort" Type="float" Nullable="false" />
+          <Property Name="RequestType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="WBSNo" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PlanStart" Type="datetime" />
+          <Property Name="PlanFinish" Type="datetime" />
+          <Property Name="PlanEffort" Type="float" />
+          <Property Name="CancelledFlag" Type="tinyint" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleDev">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="WBSNo" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UserID" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordPhase">
+          <Key>
+            <PropertyRef Name="TimeRecordPhaseID" />
+          </Key>
+          <Property Name="TimeRecordPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TimeRecordPhaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DEV" Type="tinyint" />
+          <Property Name="COMTOR" Type="tinyint" />
+          <Property Name="PMO" Type="tinyint" />
+          <Property Name="OTHERS" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="TimeRecordPhaseProcess">
+          <Key>
+            <PropertyRef Name="TimeRecordPhaseID" />
+            <PropertyRef Name="TimeRecordProcessID" />
+          </Key>
+          <Property Name="TimeRecordPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TimeRecordProcessID" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordProcess">
+          <Key>
+            <PropertyRef Name="TimeRecordProcessID" />
+          </Key>
+          <Property Name="TimeRecordProcessID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TimeRecordProcessName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GM" Type="tinyint" />
+          <Property Name="PL" Type="tinyint" />
+          <Property Name="DEV" Type="tinyint" />
+          <Property Name="QA" Type="tinyint" />
+          <Property Name="OTHERS" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="TimeRecordProject">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectID" />
+          </Key>
+          <Property Name="TimeRecordProjectID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="TimeRecordProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeRecordProjectStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordProjectUser">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="TimeRecordProjectID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserID" Type="nchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordWorkingType">
+          <Key>
+            <PropertyRef Name="WorkingTypeName" />
+          </Key>
+          <Property Name="WorkingTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayOrder" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingInfo">
+          <Key>
+            <PropertyRef Name="TrackingNo" />
+          </Key>
+          <Property Name="TrackingNo" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="WorkingTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PhaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProcessName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" />
+          <Property Name="RequestID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Duration" Type="float" />
+          <Property Name="Progress" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ApproverID" Type="varchar" MaxLength="8" />
+          <Property Name="ApproveComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="ApprovedFlag" Type="tinyint" />
+          <Property Name="TimeRecordInsertedFlag" Type="tinyint" />
+          <Property Name="RecordDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingPhase">
+          <Key>
+            <PropertyRef Name="TrackingPhaseID" />
+          </Key>
+          <Property Name="TrackingPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TrackingPhaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingProcess">
+          <Key>
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="TrackingProcessID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TrackingProcessName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingWBSPhaseProcess">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="TrackingPhaseID" />
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TrackingPhaseID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TrackingProcessID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsFunctionRequired" Type="tinyint" Nullable="false" />
+          <Property Name="IsProgressRequired" Type="tinyint" Nullable="false" />
+          <Property Name="IsRequestIDRequired" Type="tinyint" Nullable="false" />
+          <Property Name="AutoGenerateDescription" Type="tinyint" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="Full Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="InitialName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ADName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="5" />
+          <Property Name="Role" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TimeRecordPwd" Type="varchar" MaxLength="50" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WBSMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="WBSNo" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WBSName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayOrder" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UVTrackingInfo.dbo.ProductivityView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductivityView">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProductivityPhaseName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="SizeInfo" />
+            <PropertyRef Name="Effort" />
+            <PropertyRef Name="DisplayOrder" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProductivityPhaseName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="SizeInfo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Effort" Type="float" Nullable="false" />
+          <Property Name="DisplayOrder" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UVTrackingInfo.dbo.ProgressTrackingView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProgressTrackingView">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LastProgress" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UVTrackingInfo.dbo.ScheduleView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ScheduleView">
+          <Key>
+            <PropertyRef Name="WBSNo" />
+            <PropertyRef Name="WBSName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ActualEffort" />
+            <PropertyRef Name="Complete" />
+          </Key>
+          <Property Name="UserID" Type="nchar" MaxLength="8" />
+          <Property Name="InitialName" Type="nvarchar" MaxLength="20" />
+          <Property Name="WBSNo" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WBSName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunctionCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlanStart" Type="datetime" />
+          <Property Name="ActualStart" Type="datetime" />
+          <Property Name="PlanFinish" Type="datetime" />
+          <Property Name="ActualFinish" Type="datetime" />
+          <Property Name="PlanEffort" Type="float" />
+          <Property Name="ActualEffort" Type="float" Nullable="false" />
+          <Property Name="Complete" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CancelledFlag" Type="tinyint" />
+        </EntityType>
+        <Function Name="GetScheduleInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReportDate" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="USVTracking_MVCModelsStoreContainer">
+          <EntitySet Name="BaselineManagement" EntityType="Self.BaselineManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FunctionMaster" EntityType="Self.FunctionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FunctionSizeInfo" EntityType="Self.FunctionSizeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HolidayMaster" EntityType="Self.HolidayMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MappingProductivityProcess" EntityType="Self.MappingProductivityProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MappingTrackingAndTimeRecord" EntityType="Self.MappingTrackingAndTimeRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductivityPhaseMaster" EntityType="Self.ProductivityPhaseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectMaster" EntityType="Self.ProjectMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestSchedule" EntityType="Self.RequestSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleDev" EntityType="Self.ScheduleDev" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordPhase" EntityType="Self.TimeRecordPhase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordPhaseProcess" EntityType="Self.TimeRecordPhaseProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordProcess" EntityType="Self.TimeRecordProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordProject" EntityType="Self.TimeRecordProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordProjectUser" EntityType="Self.TimeRecordProjectUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeRecordWorkingType" EntityType="Self.TimeRecordWorkingType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackingInfo" EntityType="Self.TrackingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackingPhase" EntityType="Self.TrackingPhase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackingProcess" EntityType="Self.TrackingProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackingWBSPhaseProcess" EntityType="Self.TrackingWBSPhaseProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WBSMaster" EntityType="Self.WBSMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductivityView" EntityType="Self.ProductivityView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductivityView].[ProjectName] AS [ProjectName], 
+    [ProductivityView].[FunctionCode] AS [FunctionCode], 
+    [ProductivityView].[ProductivityPhaseName] AS [ProductivityPhaseName], 
+    [ProductivityView].[Unit] AS [Unit], 
+    [ProductivityView].[SizeInfo] AS [SizeInfo], 
+    [ProductivityView].[Effort] AS [Effort], 
+    [ProductivityView].[DisplayOrder] AS [DisplayOrder]
+    FROM [dbo].[ProductivityView] AS [ProductivityView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProgressTrackingView" EntityType="Self.ProgressTrackingView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProgressTrackingView].[ProjectName] AS [ProjectName], 
+    [ProgressTrackingView].[FunctionCode] AS [FunctionCode], 
+    [ProgressTrackingView].[WBSNo] AS [WBSNo], 
+    [ProgressTrackingView].[LastProgress] AS [LastProgress]
+    FROM [dbo].[ProgressTrackingView] AS [ProgressTrackingView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ScheduleView" EntityType="Self.ScheduleView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ScheduleView].[UserID] AS [UserID], 
+    [ScheduleView].[InitialName] AS [InitialName], 
+    [ScheduleView].[WBSNo] AS [WBSNo], 
+    [ScheduleView].[WBSName] AS [WBSName], 
+    [ScheduleView].[FunctionCode] AS [FunctionCode], 
+    [ScheduleView].[ProjectName] AS [ProjectName], 
+    [ScheduleView].[PlanStart] AS [PlanStart], 
+    [ScheduleView].[ActualStart] AS [ActualStart], 
+    [ScheduleView].[PlanFinish] AS [PlanFinish], 
+    [ScheduleView].[ActualFinish] AS [ActualFinish], 
+    [ScheduleView].[PlanEffort] AS [PlanEffort], 
+    [ScheduleView].[ActualEffort] AS [ActualEffort], 
+    [ScheduleView].[Complete] AS [Complete], 
+    [ScheduleView].[CancelledFlag] AS [CancelledFlag]
+    FROM [dbo].[ScheduleView] AS [ScheduleView]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="USVTracking_MVC.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BaselineManagement">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ResourceName" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResourceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResourceType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentVersion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LastestVersion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LastRequestID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LastRequestVersion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BaselineDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FunctionMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Info1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Info2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Info3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Info4" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Info5" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FunctionSizeInfo">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProductivityPhaseID" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductivityPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SizeInfo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedUserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HolidayMaster">
+          <Key>
+            <PropertyRef Name="Holiday" />
+          </Key>
+          <Property Name="Holiday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MappingProductivityProcess">
+          <Key>
+            <PropertyRef Name="ProductivityPhaseID" />
+            <PropertyRef Name="TrackingPhaseID" />
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="ProductivityPhaseID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackingPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackingProcessID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MappingTrackingAndTimeRecord">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="TrackingProjectName" />
+            <PropertyRef Name="TrackingPhaseName" />
+            <PropertyRef Name="TrackingProcessName" />
+            <PropertyRef Name="TimeRecordProjectName" />
+            <PropertyRef Name="TimeRecordPhaseName" />
+            <PropertyRef Name="TimeRecordProcessName" />
+          </Key>
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackingProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackingPhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackingProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeRecordProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeRecordPhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeRecordProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductivityPhaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ProductivityPhaseID" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductivityPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductivityPhaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectName" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="TimeRecordProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsScheduled" Type="Byte" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestSchedule">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="RequestID" />
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PlanStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PlanFinish" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PlanEffort" Type="Double" Nullable="false" />
+          <Property Name="RequestType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="WBSNo" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PlanStart" Type="DateTime" Precision="3" />
+          <Property Name="PlanFinish" Type="DateTime" Precision="3" />
+          <Property Name="PlanEffort" Type="Double" />
+          <Property Name="CancelledFlag" Type="Byte" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleDev">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="WBSNo" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordPhase">
+          <Key>
+            <PropertyRef Name="TimeRecordPhaseID" />
+          </Key>
+          <Property Name="TimeRecordPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeRecordPhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DEV" Type="Byte" />
+          <Property Name="COMTOR" Type="Byte" />
+          <Property Name="PMO" Type="Byte" />
+          <Property Name="OTHERS" Type="Byte" />
+        </EntityType>
+        <EntityType Name="TimeRecordPhaseProcess">
+          <Key>
+            <PropertyRef Name="TimeRecordPhaseID" />
+            <PropertyRef Name="TimeRecordProcessID" />
+          </Key>
+          <Property Name="TimeRecordPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeRecordProcessID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordProcess">
+          <Key>
+            <PropertyRef Name="TimeRecordProcessID" />
+          </Key>
+          <Property Name="TimeRecordProcessID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeRecordProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GM" Type="Byte" />
+          <Property Name="PL" Type="Byte" />
+          <Property Name="DEV" Type="Byte" />
+          <Property Name="QA" Type="Byte" />
+          <Property Name="OTHERS" Type="Byte" />
+        </EntityType>
+        <EntityType Name="TimeRecordProject">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectID" />
+          </Key>
+          <Property Name="TimeRecordProjectID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeRecordProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeRecordProjectStatus" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordProjectUser">
+          <Key>
+            <PropertyRef Name="TimeRecordProjectID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="TimeRecordProjectID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeRecordWorkingType">
+          <Key>
+            <PropertyRef Name="WorkingTypeName" />
+          </Key>
+          <Property Name="WorkingTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingInfo">
+          <Key>
+            <PropertyRef Name="TrackingNo" />
+          </Key>
+          <Property Name="TrackingNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WorkingTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="RequestID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Duration" Type="Double" />
+          <Property Name="Progress" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApproverID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ApproveComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedFlag" Type="Byte" />
+          <Property Name="TimeRecordInsertedFlag" Type="Byte" />
+          <Property Name="RecordDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TrackingPhase">
+          <Key>
+            <PropertyRef Name="TrackingPhaseID" />
+          </Key>
+          <Property Name="TrackingPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackingPhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingProcess">
+          <Key>
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="TrackingProcessID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackingProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackingWBSPhaseProcess">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="TrackingPhaseID" />
+            <PropertyRef Name="TrackingProcessID" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackingPhaseID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackingProcessID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsFunctionRequired" Type="Byte" Nullable="false" />
+          <Property Name="IsProgressRequired" Type="Byte" Nullable="false" />
+          <Property Name="IsRequestIDRequired" Type="Byte" Nullable="false" />
+          <Property Name="AutoGenerateDescription" Type="Byte" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InitialName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeRecordPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WBSMaster">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="WBSNo" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WBSName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DelFlag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductivityView">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProductivityPhaseName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="SizeInfo" />
+            <PropertyRef Name="Effort" />
+            <PropertyRef Name="DisplayOrder" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductivityPhaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SizeInfo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Effort" Type="Double" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgressTrackingView">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LastProgress" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ScheduleView">
+          <Key>
+            <PropertyRef Name="WBSNo" />
+            <PropertyRef Name="WBSName" />
+            <PropertyRef Name="FunctionCode" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ActualEffort" />
+            <PropertyRef Name="Complete" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="InitialName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WBSNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WBSName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlanStart" Type="DateTime" Precision="3" />
+          <Property Name="ActualStart" Type="DateTime" Precision="3" />
+          <Property Name="PlanFinish" Type="DateTime" Precision="3" />
+          <Property Name="ActualFinish" Type="DateTime" Precision="3" />
+          <Property Name="PlanEffort" Type="Double" />
+          <Property Name="ActualEffort" Type="Double" Nullable="false" />
+          <Property Name="Complete" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CancelledFlag" Type="Byte" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BaselineManagement" EntityType="Self.BaselineManagement" />
+          <EntitySet Name="FunctionMaster" EntityType="Self.FunctionMaster" />
+          <EntitySet Name="FunctionSizeInfo" EntityType="Self.FunctionSizeInfo" />
+          <EntitySet Name="HolidayMaster" EntityType="Self.HolidayMaster" />
+          <EntitySet Name="MappingProductivityProcess" EntityType="Self.MappingProductivityProcess" />
+          <EntitySet Name="MappingTrackingAndTimeRecord" EntityType="Self.MappingTrackingAndTimeRecord" />
+          <EntitySet Name="ProductivityPhaseMaster" EntityType="Self.ProductivityPhaseMaster" />
+          <EntitySet Name="ProjectMaster" EntityType="Self.ProjectMaster" />
+          <EntitySet Name="RequestSchedule" EntityType="Self.RequestSchedule" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <EntitySet Name="ScheduleDev" EntityType="Self.ScheduleDev" />
+          <EntitySet Name="TimeRecordPhase" EntityType="Self.TimeRecordPhase" />
+          <EntitySet Name="TimeRecordPhaseProcess" EntityType="Self.TimeRecordPhaseProcess" />
+          <EntitySet Name="TimeRecordProcess" EntityType="Self.TimeRecordProcess" />
+          <EntitySet Name="TimeRecordProject" EntityType="Self.TimeRecordProject" />
+          <EntitySet Name="TimeRecordProjectUser" EntityType="Self.TimeRecordProjectUser" />
+          <EntitySet Name="TimeRecordWorkingType" EntityType="Self.TimeRecordWorkingType" />
+          <EntitySet Name="TrackingInfo" EntityType="Self.TrackingInfo" />
+          <EntitySet Name="TrackingPhase" EntityType="Self.TrackingPhase" />
+          <EntitySet Name="TrackingProcess" EntityType="Self.TrackingProcess" />
+          <EntitySet Name="TrackingWBSPhaseProcess" EntityType="Self.TrackingWBSPhaseProcess" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" />
+          <EntitySet Name="WBSMaster" EntityType="Self.WBSMaster" />
+          <EntitySet Name="ProductivityView" EntityType="Self.ProductivityView" />
+          <EntitySet Name="ProgressTrackingView" EntityType="Self.ProgressTrackingView" />
+          <EntitySet Name="ScheduleView" EntityType="Self.ScheduleView" />
+          <FunctionImport Name="GetScheduleInfo" ReturnType="Collection(USVTracking_MVC.Models.GetScheduleInfo_Result)">
+            <Parameter Name="ReportDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetScheduleInfo_Result">
+          <Property Type="String" Name="UserID" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="InitialName" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="WBSNo" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="WBSName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="FunctionCode" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="PlanStart" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ActualStart" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PlanFinish" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ActualFinish" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="PlanEffort" Nullable="true" />
+          <Property Type="Double" Name="ActualEffort" Nullable="false" />
+          <Property Type="Decimal" Name="Complete" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Byte" Name="CancelledFlag" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="USVTracking_MVCModelsStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="BaselineManagement">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.BaselineManagement">
+              <MappingFragment StoreEntitySet="BaselineManagement">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="ResourceType" ColumnName="ResourceType" />
+                <ScalarProperty Name="CurrentVersion" ColumnName="CurrentVersion" />
+                <ScalarProperty Name="LastestVersion" ColumnName="LastestVersion" />
+                <ScalarProperty Name="LastRequestID" ColumnName="LastRequestID" />
+                <ScalarProperty Name="LastRequestVersion" ColumnName="LastRequestVersion" />
+                <ScalarProperty Name="BaselineDate" ColumnName="BaselineDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FunctionMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.FunctionMaster">
+              <MappingFragment StoreEntitySet="FunctionMaster">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="Info1" ColumnName="Info1" />
+                <ScalarProperty Name="Info2" ColumnName="Info2" />
+                <ScalarProperty Name="Info3" ColumnName="Info3" />
+                <ScalarProperty Name="Info4" ColumnName="Info4" />
+                <ScalarProperty Name="Info5" ColumnName="Info5" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FunctionSizeInfo">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.FunctionSizeInfo">
+              <MappingFragment StoreEntitySet="FunctionSizeInfo">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="ProductivityPhaseID" ColumnName="ProductivityPhaseID" />
+                <ScalarProperty Name="SizeInfo" ColumnName="SizeInfo" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HolidayMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.HolidayMaster">
+              <MappingFragment StoreEntitySet="HolidayMaster">
+                <ScalarProperty Name="Holiday" ColumnName="Holiday" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MappingProductivityProcess">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.MappingProductivityProcess">
+              <MappingFragment StoreEntitySet="MappingProductivityProcess">
+                <ScalarProperty Name="ProductivityPhaseID" ColumnName="ProductivityPhaseID" />
+                <ScalarProperty Name="TrackingPhaseID" ColumnName="TrackingPhaseID" />
+                <ScalarProperty Name="TrackingProcessID" ColumnName="TrackingProcessID" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MappingTrackingAndTimeRecord">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.MappingTrackingAndTimeRecord">
+              <MappingFragment StoreEntitySet="MappingTrackingAndTimeRecord">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="TrackingProjectName" ColumnName="TrackingProjectName" />
+                <ScalarProperty Name="TrackingPhaseName" ColumnName="TrackingPhaseName" />
+                <ScalarProperty Name="TrackingProcessName" ColumnName="TrackingProcessName" />
+                <ScalarProperty Name="TimeRecordProjectName" ColumnName="TimeRecordProjectName" />
+                <ScalarProperty Name="TimeRecordPhaseName" ColumnName="TimeRecordPhaseName" />
+                <ScalarProperty Name="TimeRecordProcessName" ColumnName="TimeRecordProcessName" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductivityPhaseMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ProductivityPhaseMaster">
+              <MappingFragment StoreEntitySet="ProductivityPhaseMaster">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProductivityPhaseID" ColumnName="ProductivityPhaseID" />
+                <ScalarProperty Name="ProductivityPhaseName" ColumnName="ProductivityPhaseName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ProjectMaster">
+              <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="TimeRecordProjectName" ColumnName="TimeRecordProjectName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="IsScheduled" ColumnName="IsScheduled" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestSchedule">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.RequestSchedule">
+              <MappingFragment StoreEntitySet="RequestSchedule">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PlanStart" ColumnName="PlanStart" />
+                <ScalarProperty Name="PlanFinish" ColumnName="PlanFinish" />
+                <ScalarProperty Name="PlanEffort" ColumnName="PlanEffort" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="PlanStart" ColumnName="PlanStart" />
+                <ScalarProperty Name="PlanFinish" ColumnName="PlanFinish" />
+                <ScalarProperty Name="PlanEffort" ColumnName="PlanEffort" />
+                <ScalarProperty Name="CancelledFlag" ColumnName="CancelledFlag" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleDev">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ScheduleDev">
+              <MappingFragment StoreEntitySet="ScheduleDev">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordPhase">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordPhase">
+              <MappingFragment StoreEntitySet="TimeRecordPhase">
+                <ScalarProperty Name="TimeRecordPhaseID" ColumnName="TimeRecordPhaseID" />
+                <ScalarProperty Name="TimeRecordPhaseName" ColumnName="TimeRecordPhaseName" />
+                <ScalarProperty Name="DEV" ColumnName="DEV" />
+                <ScalarProperty Name="COMTOR" ColumnName="COMTOR" />
+                <ScalarProperty Name="PMO" ColumnName="PMO" />
+                <ScalarProperty Name="OTHERS" ColumnName="OTHERS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordPhaseProcess">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordPhaseProcess">
+              <MappingFragment StoreEntitySet="TimeRecordPhaseProcess">
+                <ScalarProperty Name="TimeRecordPhaseID" ColumnName="TimeRecordPhaseID" />
+                <ScalarProperty Name="TimeRecordProcessID" ColumnName="TimeRecordProcessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordProcess">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordProcess">
+              <MappingFragment StoreEntitySet="TimeRecordProcess">
+                <ScalarProperty Name="TimeRecordProcessID" ColumnName="TimeRecordProcessID" />
+                <ScalarProperty Name="TimeRecordProcessName" ColumnName="TimeRecordProcessName" />
+                <ScalarProperty Name="GM" ColumnName="GM" />
+                <ScalarProperty Name="PL" ColumnName="PL" />
+                <ScalarProperty Name="DEV" ColumnName="DEV" />
+                <ScalarProperty Name="QA" ColumnName="QA" />
+                <ScalarProperty Name="OTHERS" ColumnName="OTHERS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordProject">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordProject">
+              <MappingFragment StoreEntitySet="TimeRecordProject">
+                <ScalarProperty Name="TimeRecordProjectID" ColumnName="TimeRecordProjectID" />
+                <ScalarProperty Name="TimeRecordProjectName" ColumnName="TimeRecordProjectName" />
+                <ScalarProperty Name="TimeRecordProjectStatus" ColumnName="TimeRecordProjectStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordProjectUser">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordProjectUser">
+              <MappingFragment StoreEntitySet="TimeRecordProjectUser">
+                <ScalarProperty Name="TimeRecordProjectID" ColumnName="TimeRecordProjectID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeRecordWorkingType">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TimeRecordWorkingType">
+              <MappingFragment StoreEntitySet="TimeRecordWorkingType">
+                <ScalarProperty Name="WorkingTypeName" ColumnName="WorkingTypeName" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackingInfo">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TrackingInfo">
+              <MappingFragment StoreEntitySet="TrackingInfo">
+                <ScalarProperty Name="TrackingNo" ColumnName="TrackingNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="WorkingTypeName" ColumnName="WorkingTypeName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="PhaseName" ColumnName="PhaseName" />
+                <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="ApproveComment" ColumnName="ApproveComment" />
+                <ScalarProperty Name="ApprovedFlag" ColumnName="ApprovedFlag" />
+                <ScalarProperty Name="TimeRecordInsertedFlag" ColumnName="TimeRecordInsertedFlag" />
+                <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackingPhase">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TrackingPhase">
+              <MappingFragment StoreEntitySet="TrackingPhase">
+                <ScalarProperty Name="TrackingPhaseID" ColumnName="TrackingPhaseID" />
+                <ScalarProperty Name="TrackingPhaseName" ColumnName="TrackingPhaseName" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackingProcess">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TrackingProcess">
+              <MappingFragment StoreEntitySet="TrackingProcess">
+                <ScalarProperty Name="TrackingProcessID" ColumnName="TrackingProcessID" />
+                <ScalarProperty Name="TrackingProcessName" ColumnName="TrackingProcessName" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackingWBSPhaseProcess">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.TrackingWBSPhaseProcess">
+              <MappingFragment StoreEntitySet="TrackingWBSPhaseProcess">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="TrackingPhaseID" ColumnName="TrackingPhaseID" />
+                <ScalarProperty Name="TrackingProcessID" ColumnName="TrackingProcessID" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="IsFunctionRequired" ColumnName="IsFunctionRequired" />
+                <ScalarProperty Name="IsProgressRequired" ColumnName="IsProgressRequired" />
+                <ScalarProperty Name="IsRequestIDRequired" ColumnName="IsRequestIDRequired" />
+                <ScalarProperty Name="AutoGenerateDescription" ColumnName="AutoGenerateDescription" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="InitialName" ColumnName="InitialName" />
+                <ScalarProperty Name="ADName" ColumnName="ADName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="TimeRecordPwd" ColumnName="TimeRecordPwd" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WBSMaster">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.WBSMaster">
+              <MappingFragment StoreEntitySet="WBSMaster">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="WBSName" ColumnName="WBSName" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductivityView">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ProductivityView">
+              <MappingFragment StoreEntitySet="ProductivityView">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="ProductivityPhaseName" ColumnName="ProductivityPhaseName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="SizeInfo" ColumnName="SizeInfo" />
+                <ScalarProperty Name="Effort" ColumnName="Effort" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgressTrackingView">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ProgressTrackingView">
+              <MappingFragment StoreEntitySet="ProgressTrackingView">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="LastProgress" ColumnName="LastProgress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleView">
+            <EntityTypeMapping TypeName="USVTracking_MVC.Models.ScheduleView">
+              <MappingFragment StoreEntitySet="ScheduleView">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="InitialName" ColumnName="InitialName" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="WBSName" ColumnName="WBSName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="PlanStart" ColumnName="PlanStart" />
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="PlanFinish" ColumnName="PlanFinish" />
+                <ScalarProperty Name="ActualFinish" ColumnName="ActualFinish" />
+                <ScalarProperty Name="PlanEffort" ColumnName="PlanEffort" />
+                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="CancelledFlag" ColumnName="CancelledFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetScheduleInfo" FunctionName="USVTracking_MVC.Models.Store.GetScheduleInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="USVTracking_MVC.Models.GetScheduleInfo_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="InitialName" ColumnName="InitialName" />
+                <ScalarProperty Name="WBSNo" ColumnName="WBSNo" />
+                <ScalarProperty Name="WBSName" ColumnName="WBSName" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="PlanStart" ColumnName="PlanStart" />
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="PlanFinish" ColumnName="PlanFinish" />
+                <ScalarProperty Name="ActualFinish" ColumnName="ActualFinish" />
+                <ScalarProperty Name="PlanEffort" ColumnName="PlanEffort" />
+                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="CancelledFlag" ColumnName="CancelledFlag" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

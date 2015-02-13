@@ -1,0 +1,153 @@
+﻿@using USVTracking_MVC.Common
+@using USVTracking_MVC.Models
+@{
+    UserMaster UserInf = (UserMaster)Session[SessionKeyConstant.UserInformation];
+    if (ViewData["page"] != null) { var page = (int)ViewData["page"]; }
+    if (ViewData["total"] != null) { var total = (int)ViewData["total"]; }
+}
+@model USVTracking_MVC.Models.TrackingProgressModel
+@*@Scripts.Render("~/Scripts/usv/time-record-screen.js")*@
+@{
+    ViewBag.Title = "Tracking Progress Screen";
+}
+<div class="content-header" style="text-align: left">
+    @using (@Html.BeginForm("Index", "TrackingProgress", FormMethod.Get))
+    {
+        <table cellpadding="2" cellspacing="0" border="0" class="tbl-header" style="width: 700px">
+            <tbody>
+                <tr>
+                    <td rowspan="3">
+                        Filter
+                    </td>
+                    <td>
+                        Project
+                    </td>
+                    <td style="width: 30%">
+                        @Html.DropDownListFor(model => model.ProjectName, new SelectList(Model.ListProject, "ProjectName", "ProjectName"))
+                    </td>
+                    <td>
+                        From Date
+                    </td>
+                    <td style="width: 20%">
+                        @Html.TextBoxFor(model => model.FromDate, new { @class = "datepicker", size = "20", value = " " })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Status
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.Status, new SelectList(Model.TaskStatus))
+                    </td>
+                    <td>
+                        To Date
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.EndDate, new { @class = "datepicker", size = "18" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input style="width: 90px; height: 25px;" type="submit" value="Search" id="searchBtn" />
+                    </td>
+                    <td colspan="2">
+                        <input style="width: 90px; height: 25px;" type="button" value="New" id="newBtn" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+@if (Session[SessionKeyConstant.ModelSave] != null)
+{
+    Session[SessionKeyConstant.ModelSave] = null;
+}
+@if (Session[SessionKeyConstant.DateTimeFromTo] != null)
+{
+    <span class="form-error">@Session[SessionKeyConstant.DateTimeFromTo]</span>
+    Session[SessionKeyConstant.DateTimeFromTo] = null;
+}
+else if (Session["CheckDate"] != null)
+{
+    <span class="form-error">@Session["CheckDate"]</span>
+    Session["CheckDate"] = null;
+}
+else if (Session[SessionKeyConstant.NotFoundTracking] != null)
+{ 
+    <div class="content-main">
+        <center>
+            <h3>@Session[SessionKeyConstant.NotFoundTracking]</h3>
+        </center>
+    </div>
+    
+    Session[SessionKeyConstant.NotFoundTracking] = null;
+}
+else if (Model.ListTrackingInfo != null && Model.ListTrackingInfo.Count() > 0)
+{
+    <div id="PersonContainer" style="text-align: left">
+        @Html.Partial("_TrackingList", Model)
+    </div>
+
+    <ul class="navigator">
+        <li><a href="#" class="disabled" id="updateBtn">Update </a></li>
+        <li><a href="#" class="disabled" id="deleteBtn">Delete </a></li>
+    </ul>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#newBtn').click(function () {
+            document.location.href = "SubmitProgessBatch";
+        });
+
+        $('#updateBtn').click(function () {
+            if ($(this).is('.disabled')) { return false; }
+            $('form[name=submitForm]').attr('action', '@(Url.Action("Index", "SubmitProgessBatch"))?date=' + $.now());
+            $('form[name=submitForm]').submit();
+        });
+
+        $('#deleteBtn').click(function () {
+            if ($(this).is('.disabled')) { return false; }
+            if(!confirm("Are you sure to delete these records?")) {
+                return false;
+            }
+            $.ajax({
+                url: '@(Url.Action("Delete"))?date=' + $.now(),
+                data: $('form[name=submitForm]').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
+                    document.location.reload();
+                },
+                error: function () {
+                    alert("Unknown error, this page will be refreshed!");
+                    document.location.reload();
+                }
+            });
+            return false;
+        });
+
+        var $chkAll = $('#chkAll');
+        var $allCheckBox = $('input[type=checkbox]').not($chkAll).not(":disabled");
+        $chkAll.change(function () {
+            var checked = $chkAll.is(':checked');
+            $allCheckBox.attr('checked', checked);
+            $allCheckBox.trigger('change');
+        });
+
+        $allCheckBox.change(function () {
+            var $allChecked = $allCheckBox.filter(function () {
+                return $(this).is(':checked');
+            });
+            if ($allChecked.length == 0) {
+                $('#updateBtn,#deleteBtn').addClass('disabled')
+            } else {
+                $('#updateBtn,#deleteBtn').removeClass('disabled')
+            }
+            $chkAll.attr('checked', $allChecked.length == $allCheckBox.length);
+        });
+
+        $("#page1").attr("style", "background-color:#DDEEFF; border:1px solid #BBDDFF; font-weight:bold");
+        $chkAll.attr('checked', false);
+        $chkAll.change();
+    });
+</script>

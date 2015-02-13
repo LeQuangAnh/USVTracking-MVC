@@ -131,6 +131,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -209,18 +211,125 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\SessionKeyConstant.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TimeRecordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaselineManagement.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FunctionMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FunctionSizeInfo.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetScheduleInfo_Result.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HolidayMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MappingProductivityProcess.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MappingTrackingAndTimeRecord.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductivityPhaseMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductivityView.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProgressTrackingView.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestSchedule.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Schedule.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScheduleDev.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScheduleView.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SingleTaskModel.cs" />
+    <Compile Include="Models\SubmitProgessBatchModel.cs" />
+    <Compile Include="Models\TaskInfo.cs" />
+    <Compile Include="Models\TimeRecordPhase.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeRecordPhaseProcess.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeRecordProcess.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeRecordProject.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeRecordProjectUser.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeRecordWorkingType.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrackingInfo.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrackingPhase.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrackingProcess.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrackingProgressModel.cs" />
+    <Compile Include="Models\TrackingWBSPhaseProcess.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UVTrackingInfoEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UVTrackingInfoEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UVTrackingInfoEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UVTrackingInfoEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UVTrackingInfoEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WBSMaster.cs">
+      <DependentUpon>UVTrackingInfoEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\USVUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\usvtracking\signin.css" />
+    <Content Include="Content\usvtracking\sticky-footer-navbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap\variables.less" />
@@ -302,6 +411,24 @@
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
+    <EntityDeploy Include="Models\UVTrackingInfoEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UVTrackingInfoEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\UVTrackingInfoEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UVTrackingInfoEntities.edmx</DependentUpon>
+      <LastGenOutput>UVTrackingInfoEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UVTrackingInfoEntities.edmx.diagram">
+      <DependentUpon>UVTrackingInfoEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\UVTrackingInfoEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UVTrackingInfoEntities.edmx</DependentUpon>
+      <LastGenOutput>UVTrackingInfoEntities.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\USVTrackingTool.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -316,6 +443,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\usv\time-record-screen.js" />
+    <Content Include="Scripts\usv\uv-common.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -331,20 +460,24 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout_editing.cshtml" />
+    <Content Include="Views\TimeRecord\Index.cshtml" />
+    <Content Include="Views\TimeRecord\_TrackingList.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\_LoginPartial.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +485,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

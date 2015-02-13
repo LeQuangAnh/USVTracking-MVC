@@ -1,0 +1,123 @@
+﻿@using USVTracking_MVC.Models
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - UV Tasks Tracker</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/usv/uv-common.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initLoading();
+        });
+    </script>
+</head>
+@{
+    UserMaster userInfo = (UserMaster)Session[USVTracking_MVC.Common.SessionKeyConstant.UserInformation];
+
+    <body>
+        @if (userInfo != null && userInfo.DelFlag != 1)
+        {
+            <div class="header" id="pageTitle" style="height: 50px">
+                <span>UV Tasks Tracker - @ViewBag.Title</span>
+                @if (userInfo != null)
+                {
+                    <span style="font-size: medium; font-weight: normal; float: right; padding-top: 2px">
+                        <thead>
+                            @Html.ActionLink(userInfo.InitialName, "Index", "ChangeTRPassword", new { now = DateTime.Now }, new
+                                {
+                                    @class = "changeTRPassword",
+                                    @id = "link_ChangeTRPassword"
+                                }) logged in
+                        </thead>
+                    </span>
+                }
+            </div>
+            <ul id="nav">
+                <li>
+                    @Html.ActionLink("Tracking Progress", "Index", "TrackingProgress", null, new
+                        {
+                            @id = "link_TrackingProgressScreen"
+                        })
+                </li>
+                <li>
+                    @Html.ActionLink("Tracking Schedule", "Index", "TrackingSchedule", null, new
+                        {
+                            @id = "link_TrackingScheduleScreen"
+                        })
+                </li>
+                @{
+                //var userInfo = (UVTaskTracker.Models.UserMaster)Session[UVTaskTracker.Common.SessionKeyConstant.UserInformation];
+                if (userInfo != null && userInfo.Role != "DEV")
+                {
+                    <li>
+                        @Html.ActionLink("Baseline Management", "Index", "Baseline", null, new
+                            {
+                                @id = "link_BaselineManagementScreen"
+                            })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Approve", "Index", "ApprovedTracking", null, new
+                            {
+                                @id = "link_ApprovedScreen"
+                            })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Productivity", "Index", "ProductivityReport", null, new
+                            {
+                                @id = "link_ProductivityReportScreen"
+                            })
+                    </li>
+                }
+                }
+                <li><a href="#">Report</a>
+                    <ul style="z-index: 1">
+                        <li>
+                            @Html.ActionLink("Report By Member", "Index", "ReportByMember", null, new
+                                {
+                                    @id = "link_ReportByMemberScreen"
+                                })
+                        </li>
+                        @if (userInfo != null && userInfo.Role != "DEV")
+                        { 
+                            <li>
+                                @Html.ActionLink("Report By Team", "Index", "ReportByTeam", null, new
+                                    {
+                                        @id = "link_ReportByTeamScreen"
+                                    })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Late Tracking Report", "Index", "LateTrackingReport", null, new
+                                    {
+                                        @is = "link_LateTrackingReport"
+                                    })
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li>
+                    @Html.ActionLink("Request Schedule", "Index", "RequestSchedule", null, new
+                        {
+                            @id = "link_RequestScheduleScreen"
+                        })
+                </li>
+            </ul>
+        }
+        else
+        {
+            <div class="header" id="userDeleted" style="height: 50px">
+                <span>User Deleted!</span>
+            </div>
+        }
+        @RenderSection("featured", required: false)
+        @RenderBody()
+        <div id="ajaxloading">
+        </div>
+    </body>
+}
+</html>
